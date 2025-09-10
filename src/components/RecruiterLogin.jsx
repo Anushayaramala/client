@@ -9,12 +9,31 @@ const RecruiterLogin = () => {
 
     const [image,setImage]=React.useState(false)
     const [isTextDataSubmitted,setIsTextDataSubmitted]=React.useState(false)
+
+    const onSubmitHandler=async(e)=>{
+        e.preventDefault()
+        if(state==='Sign Up' && !isTextDataSubmitted){
+            setIsTextDataSubmitted(true)
+
+    }
+}
+
   return (
 
     <div className='absolute top-0 left-0 right-0 bottom-0 z-0 backdrop-blur-sm bg-black/30 flex justify-center items-center'>
-        <form className='relative bg-white p-10 rounded-xl text-slate-500' action="">
+        <form onSubmit={onSubmitHandler} className='relative bg-white p-10 rounded-xl text-slate-500' action="">
             <h1 className='text-center text-2xl text-neutral-700 font-medium'>Recruiter {state}</h1>
             <p className='text-sm'>Welcome back! Please Sign in to cotinue</p>
+            {state==='Sign Up' && isTextDataSubmitted?
+            <>
+            <div className='flex items-center gap-4 my-10'>
+                <label htmlFor="image">
+                    <img className='w-16 rounded-full' src={image? URL.createObjectURL(image): assets.upload_area} alt="" />
+                    <input onChange={e=>setImage(e.target.files[0])} type="file" id='image' hidden />
+                </label>
+                <p>Upload Company <br/> logo</p>
+            </div>
+            </>:
             <>
             {state !== 'Login' && (
                  <div className='border px-4 py-2 flex items-center gap-2 rounded-full mt-5'>
@@ -31,14 +50,17 @@ const RecruiterLogin = () => {
                 <img src={assets.lock_icon} alt="" />
                 <input className='outline-none text-sm' onChange={e=>setPassword(e.target.value)} value={password} type="password" placeholder='Password'  required />
             </div>
-            <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>
             </>
-            <button className='bg-blue-600 w-full text-white py-2 rounded-full '>
-                {state==='Login'?'Login':'Create Account '}
+        }
+                    <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>
+
+            
+            <button type='sbmit' className='bg-blue-600 w-full text-white py-2 rounded-full '>
+                {state==='Login'?'login': isTextDataSubmitted?'Create Account': 'next'}
             </button>
             {state==='Login'?
-            <p>Don't have an account? <span>Sign Up</span></p>:
-            <p>Already have an account? <span>Login</span></p>
+            <p className='mt-5 text-center'>Don't have an account? <span className='text-blue-600 cursor-pointer' onClick={()=>setState("Sign Up")} >Sign Up</span></p>:
+            <p className='mt-5 text-center'>Already have an account? <span className='text-blue-600 cursor-pointer' onClick={()=>setState("Login")}>Login</span></p>
 
         }
             
