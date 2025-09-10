@@ -52,10 +52,10 @@ const RecruiterLogin = () => {
             </div>
             </>
         }
-                    <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>
+        {state==='Login' &&  <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>}
 
             
-            <button type='sbmit' className='bg-blue-600 w-full text-white py-2 rounded-full '>
+            <button type='sbmit' className='bg-blue-600 w-full text-white py-2 rounded-full mt-4'>
                 {state==='Login'?'login': isTextDataSubmitted?'Create Account': 'next'}
             </button>
             {state==='Login'?
@@ -63,6 +63,7 @@ const RecruiterLogin = () => {
             <p className='mt-5 text-center'>Already have an account? <span className='text-blue-600 cursor-pointer' onClick={()=>setState("Login")}>Login</span></p>
 
         }
+        <img className='absolute top-5 right-5 cursor-pointer' src={assets.cross_icon} alt="" />
             
             
         </form>
